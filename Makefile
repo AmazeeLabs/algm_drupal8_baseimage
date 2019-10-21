@@ -44,7 +44,7 @@ images_start: images_set_build_variables images_start_network
 	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose up -d;
 
 .PHONY: images_test
-images_test:
+images_test: images_start
 	docker-compose exec -T cli drush site-install --verbose config_installer config_installer_sync_configure_form.sync_directory=/app/config/sync/ --yes; \
 	docker-compose exec -T cli drush cr; \
 	docker-compose exec -T cli drush en admin_toolbar cdn password_policy pathauto ultimate_cron redis -y;\

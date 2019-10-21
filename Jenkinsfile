@@ -30,14 +30,6 @@
         '''
       }
     }
-    stage('Start images') {
-      steps {
-        sh """
-        make images_start
-        sleep 5s
-        """
-      }
-    }
     stage('Verification') {
       steps {
         sh '''
