@@ -35,17 +35,17 @@ images_build: images_set_build_variables
 .PHONY: images_start_network
 images_start_network: images_set_build_variables
 	if [ "$(has_io_network)" = 0 ]; then \
-		docker network create amazeeio-network; \
+		DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker network create amazeeio-network; \
 	fi;
 
 .PHONY: images_start
 images_start: images_set_build_variables images_start_network
-	docker-compose config -q; \
+	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose config -q; \
 	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose up -d;
 
 .PHONY: images_test
 images_test: images_start
-	docker-compose exec cli ls /app/web;
+	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose exec cli ls /app/web;
 
 # This target will iterate through all images and tags, pushing up versions of all with approriate tags
 .PHONY: images_publish
