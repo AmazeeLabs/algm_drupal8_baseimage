@@ -40,12 +40,12 @@ images_start_network: images_set_build_variables
 
 .PHONY: images_start
 images_start: images_set_build_variables images_start_network
-	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose -T config -q; \
-	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose -T up -d;
+	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose config -q; \
+	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose up -d;
 
 .PHONY: images_test
 images_test: images_start
-	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose -T exec cli ls /app/web;
+	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose exec -T cli ls /app/web;
 
 # This target will iterate through all images and tags, pushing up versions of all with approriate tags
 .PHONY: images_publish
