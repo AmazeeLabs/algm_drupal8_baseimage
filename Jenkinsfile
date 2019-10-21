@@ -30,7 +30,6 @@
         '''
       }
     }
-    /*
     stage('Start images') {
       steps {
         sh """
@@ -39,14 +38,13 @@
         """
       }
     }
-    stage('Verification') { //This stage needs to be extended - in particular, we should be running a basic site installation to ensure that this base image actually works
+    stage('Verification') {
       steps {
         sh '''
         make images_test
         '''
       }
     }
-    */
     stage('Docker Push') {
     steps {
         sh '''
