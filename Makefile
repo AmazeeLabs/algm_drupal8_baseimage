@@ -41,7 +41,6 @@ images_start_network: images_set_build_variables
 .PHONY: images_start
 images_start: images_set_build_variables images_start_network
 	docker-compose config -q; \
-	docker-compose down; \
 	DOCKER_REPO=$$DOCKER_REPO BUILDTAG=$(docker_build_tag) docker-compose up -d;
 
 .PHONY: images_test
@@ -49,7 +48,6 @@ images_test:
 	docker-compose exec -T cli drush site-install --verbose config_installer config_installer_sync_configure_form.sync_directory=/app/config/sync/ --yes; \
 	docker-compose exec -T cli drush cr; \
 	docker-compose exec -T cli drush en admin_toolbar cdn password_policy pathauto ultimate_cron redis -y;\
-	docker-compose exec -T cli drush status bootstrap | grep -q Successful; \
 	docker-compose exec -T cli /app/build/check_installation.sh
 
 # This target will iterate through all images and tags, pushing up versions of all with approriate tags
