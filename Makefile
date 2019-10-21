@@ -45,6 +45,7 @@ images_start: images_set_build_variables images_start_network
 
 .PHONY: images_test
 images_test: images_start
+	docker-compose exec cli ls /app/web; \
 	docker-compose exec -T cli drush -r /app/web site-install --verbose config_installer config_installer_sync_configure_form.sync_directory=/app/config/sync/ --yes; \
 	docker-compose exec -T cli drush -r /app/web cr; \
 	docker-compose exec -T cli drush -r /app/web en admin_toolbar cdn password_policy pathauto ultimate_cron redis -y;\
