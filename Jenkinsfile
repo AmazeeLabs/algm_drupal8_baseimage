@@ -1,7 +1,7 @@
  pipeline {
   agent {
-    openshift {
-      //cloud 'kubernetes'
+    kubernetes {
+      cloud 'openshift'
       yaml """
         apiVersion: v1
         kind: Pod
