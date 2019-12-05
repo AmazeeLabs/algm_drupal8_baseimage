@@ -32,21 +32,19 @@ spec:
                            docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
                          '''
                        }
-                      }
-                 }
-                 stage('Docker Build') {
-                   steps {
-                     sh '''
-                     make images_build
-                     '''
                    }
-                 }
-                 stage('Docker clean images') {
-                   steps {
-                     sh '''
-                     make images_remove
-                     '''
-                 }
+                stage('Docker Build') {
+                    sh '''
+                    make images_build
+                    '''
+                }
+                stage('Docker clean images') {
+                   sh '''
+                   make images_remove
+                   '''
+                }
+              }
+
             }
         }
     }
