@@ -18,7 +18,7 @@ spec:
         stage('Get Drupal') {
             git url: 'https://github.com/amazeeio/drupal-example.git'
             container('docker') {
-            withEnv(['HOME=/tmp']) {
+            withEnv(['HOME=/tmp', 'DOCKER_REPO=algmprivsecops']) {
                 stage('Test') {
                     sh """
                     echo $HOME
@@ -33,6 +33,19 @@ spec:
                          '''
                        }
                       }
+                 }
+                 stage('Docker Build') {
+                   steps {
+                     sh '''
+                     make images_build
+                     '''
+                   }
+                 }
+                 stage('Docker clean images') {
+                   steps {
+                     sh '''
+                     make images_remove
+                     '''
                  }
             }
         }
