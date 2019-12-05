@@ -15,7 +15,7 @@
             - 99d
             env:
               - name: DOCKER_HOST
-              value: tcp://docker-host.lagoon.svc.cluster.local:2375
+                value: tcp://docker-host.lagoon.svc.cluster.local:2375
         """
     }
   }
