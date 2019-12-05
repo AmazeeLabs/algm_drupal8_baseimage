@@ -35,7 +35,7 @@ spec:
                    }
                 stage('Docker Build') {
                     sh '''
-                    ls
+                    ls -lah
                     cat Makefile
                     make images_build
                     '''
