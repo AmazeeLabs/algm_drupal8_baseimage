@@ -26,6 +26,16 @@ spec:
                     make -v
                     """
                 }
+                stage('Docker login') {
+                   steps {
+                     withCredentials([
+                       usernamePassword(credentialsId: 'algmdockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                         sh '''
+                           docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+                         '''
+                       }
+                      }
+                    }
             }
         }
 
