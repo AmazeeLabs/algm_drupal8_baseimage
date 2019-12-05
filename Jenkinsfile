@@ -1,18 +1,42 @@
  pipeline {
-  agent any
+  agent {
+    kubernetes {
+      //cloud 'kubernetes'
+      yaml """
+        apiVersion: v1
+        kind: Pod
+        spec:
+          containers:
+          - name: docker
+            image: tiangolo/docker-with-compose:latest
+            command:
+            - sleep
+            args:
+            - 99d
+            env:
+              - name: DOCKER_HOST
+              value: tcp://docker-host.lagoon.svc.cluster.local:2375
+        """
+    }
+  }
   environment {
    DOCKER_REPO = 'algmprivsecops'
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '10'))
   }
-  triggers {
-    // This tells Jenkins to poll for changes in git instead of
-    // waiting for webhooks.
-    pollSCM('* * * * *')
-  }
-
   stages {
+    stage('Test pod') {
+      steps {
+        container('docker') {
+            sh '''
+                ls
+            '''
+        }
+      }
+
+    }
+    /*
     stage('Docker login') {
       steps {
         withCredentials([
@@ -51,5 +75,6 @@
         '''
       }
     }
+  */
   }
 }
