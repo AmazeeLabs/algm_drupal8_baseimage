@@ -27,7 +27,6 @@ spec:
                     """
                 }
                 stage('Docker login') {
-                   steps {
                      withCredentials([
                        usernamePassword(credentialsId: 'algmdockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                          sh '''
@@ -35,7 +34,6 @@ spec:
                          '''
                        }
                       }
-                    }
             }
         }
 
