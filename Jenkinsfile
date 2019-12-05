@@ -15,19 +15,17 @@ spec:
 ''') {
 
     node('mylabel') {
-
         stage('Get Drupal') {
             git url: 'https://github.com/amazeeio/drupal-example.git'
             container('docker') {
+            withEnv(['HOME=/tmp']) {
                 stage('Test') {
                     sh """
-                    docker-compose help
-                    echo ${BUILD_NUMBER}
-                    make -v
+                    echo $HOME
                     """
                 }
                 stage('Docker login') {
-                 withEnv(['HOME=/tmp']) {
+
                      withCredentials([
                        usernamePassword(credentialsId: 'algmdockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                          sh '''
@@ -38,6 +36,5 @@ spec:
                  }
             }
         }
-
     }
 }
