@@ -16,7 +16,7 @@ spec:
 
     node('mylabel') {
         stage('Get Drupal') {
-            git branch: "${params.BRANCH}", url: 'https://github.com/AmazeeLabs/algm_drupal8_baseimage.git'
+            git branch: "docker_agent", url: 'https://github.com/AmazeeLabs/algm_drupal8_baseimage.git' //TODO: get this in the right spot.
             container('docker') {
             withEnv(['HOME=/tmp', 'DOCKER_REPO=algmprivsecops']) {
                 stage('Test') {
