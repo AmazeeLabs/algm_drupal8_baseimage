@@ -16,7 +16,7 @@ spec:
 
     node('mylabel') {
         stage('Get Drupal') {
-            git url: 'https://github.com/amazeeio/drupal-example.git'
+            git branch: "${params.BRANCH}", url: 'https://github.com/AmazeeLabs/algm_drupal8_baseimage.git'
             container('docker') {
             withEnv(['HOME=/tmp', 'DOCKER_REPO=algmprivsecops']) {
                 stage('Test') {
