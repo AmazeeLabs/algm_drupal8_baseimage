@@ -1,4 +1,4 @@
-SHELL := /bin/bash -x
+SHELL := /bin/sh -x
 
 # step to call before running any of the following, ensures that requisite environment variables for build are set
 .PHONY: images_check_env
