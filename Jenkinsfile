@@ -18,7 +18,7 @@ spec:
         stage('Get Drupal') {
             git branch: "docker_agent", url: 'https://github.com/AmazeeLabs/algm_drupal8_baseimage.git' //TODO: get this in the right spot.
             container('docker') {
-            withEnv(['HOME=/tmp', 'DOCKER_REPO=library', 'GIT_BRANCH=docker_agent']) {
+            withEnv(['HOME=/tmp', 'DOCKER_REPO=library', 'GIT_BRANCH=docker_agent', 'DOCKER_HUB=harbor-nginx-lagoon-integrate-harbor.ch.amazee.io/']) {
                 stage('Test') {
                     sh """
                     echo $HOME

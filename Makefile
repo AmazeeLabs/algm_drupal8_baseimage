@@ -12,6 +12,9 @@ endif
 ifndef GIT_BRANCH
 	$(error GIT_BRANCH is undefined - cannot proceed with step)
 endif
+ifndef DOCKER_HUB
+	$(error DOCKER_HUB is undefined - cannot proceed with step)
+endif
 
 # here we set the variables that are used in the building, pushing, and removing of images
 .PHONY: images_set_variables
@@ -65,8 +68,8 @@ images_publish: images_set_build_variables
 	for repository in $(tagged_image_list); do \
 		for tagname in $$TAGSFORBRANCH $(git_tag_for_current_branch); do \
 			echo "pushing " $$repository:$$tagname; \
-			docker tag $$repository:$(docker_build_tag) $$repository:$$tagname; \
-			docker push $$repository:$$tagname; \
+			docker tag $$repository:$(docker_build_tag) $(DOCKER_HUB)$$repository:$$tagname; \
+			docker push $(DOCKER_HUB)$$repository:$$tagname; \
 		done; \
 	done
 
