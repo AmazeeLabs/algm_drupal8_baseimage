@@ -18,7 +18,7 @@ spec:
         stage('Get Drupal') {
             git branch: "docker_agent", url: 'https://github.com/AmazeeLabs/algm_drupal8_baseimage.git' //TODO: get this in the right spot.
             container('docker') {
-            withEnv(['HOME=/tmp', 'DOCKER_REPO=algmprivsecops', 'GIT_BRANCH=docker_agent']) {
+            withEnv(['HOME=/tmp', 'DOCKER_REPO=library', 'GIT_BRANCH=docker_agent']) {
                 stage('Test') {
                     sh """
                     echo $HOME
@@ -27,9 +27,9 @@ spec:
                 stage('Docker login') {
 
                      withCredentials([
-                       usernamePassword(credentialsId: 'algmdockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                       usernamePassword(credentialsId: 'harboruser', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                          sh '''
-                           docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+                           docker login harbor-nginx-lagoon-integrate-harbor.ch.amazee.io --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
                          '''
                        }
                    }
