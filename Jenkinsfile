@@ -40,6 +40,11 @@ spec:
                     make images_build
                     '''
                 }
+                stage('Docker Push') {
+                    sh '''
+                    make images_publish
+                    '''
+                }
                 stage('Docker clean images') {
                    sh '''
                    make images_remove
