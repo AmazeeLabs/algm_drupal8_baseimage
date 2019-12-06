@@ -18,7 +18,7 @@ spec:
         stage('Get Drupal') {
             git branch: "docker_agent", url: 'https://github.com/AmazeeLabs/algm_drupal8_baseimage.git' //TODO: get this in the right spot.
             container('docker') {
-            withEnv(['HOME=/tmp', 'DOCKER_REPO=algmprivsecops']) {
+            withEnv(['HOME=/tmp', 'DOCKER_REPO=algmprivsecops', 'GIT_BRANCH=docker_agent']) {
                 stage('Test') {
                     sh """
                     echo $HOME
